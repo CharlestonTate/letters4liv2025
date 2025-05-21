@@ -16,16 +16,84 @@ const MANUAL_UNLOCK = {
 // Letter content framework
 const LETTERS = {
     1: 'My dearest Olivia,\n\nThis is your first letter! I hope you enjoy this journey of love and surprises.\n\nLove,\nYour Boy',
-    2: 'Letter for May 26th, 2025... (write your letter here)',
-    3: 'Letter for June 2nd, 2025... (write your letter here)',
-    4: 'Letter for June 9th, 2025... (write your letter here)',
-    5: 'Letter for June 16th, 2025... (write your letter here)',
-    6: 'Letter for June 23rd, 2025... (write your letter here)',
-    7: 'Letter for June 30th, 2025... (write your letter here)',
-    8: 'Letter for July 7th, 2025... (write your letter here)',
-    9: 'Letter for July 14th, 2025... (write your letter here)',
-    10: 'Letter for July 21st, 2025... (write your letter here)',
+    2: 'Uncaught TypeError: Cannot read property \'content\' of undefined\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n    at <anonymous> (index.js:7)\n\nServer Error 503: Service Unavailable\n    at Promise.then (<anonymous>)\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n\nError: Letter content not available until May 26th, 2025\n    at LetterServer.validateDate (server.js:156)\n    at LetterServer.fetchLetter (server.js:42)',
+    3: 'Uncaught TypeError: Cannot read property \'content\' of undefined\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n    at <anonymous> (index.js:7)\n\nServer Error 503: Service Unavailable\n    at Promise.then (<anonymous>)\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n\nError: Letter content not available until June 2nd, 2025\n    at LetterServer.validateDate (server.js:156)\n    at LetterServer.fetchLetter (server.js:42)',
+    4: 'Uncaught TypeError: Cannot read property \'content\' of undefined\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n    at <anonymous> (index.js:7)\n\nServer Error 503: Service Unavailable\n    at Promise.then (<anonymous>)\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n\nError: Letter content not available until June 9th, 2025\n    at LetterServer.validateDate (server.js:156)\n    at LetterServer.fetchLetter (server.js:42)',
+    5: 'Uncaught TypeError: Cannot read property \'content\' of undefined\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n    at <anonymous> (index.js:7)\n\nServer Error 503: Service Unavailable\n    at Promise.then (<anonymous>)\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n\nError: Letter content not available until June 16th, 2025\n    at LetterServer.validateDate (server.js:156)\n    at LetterServer.fetchLetter (server.js:42)',
+    6: 'Uncaught TypeError: Cannot read property \'content\' of undefined\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n    at <anonymous> (index.js:7)\n\nServer Error 503: Service Unavailable\n    at Promise.then (<anonymous>)\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n\nError: Letter content not available until June 23rd, 2025\n    at LetterServer.validateDate (server.js:156)\n    at LetterServer.fetchLetter (server.js:42)',
+    7: 'Uncaught TypeError: Cannot read property \'content\' of undefined\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n    at <anonymous> (index.js:7)\n\nServer Error 503: Service Unavailable\n    at Promise.then (<anonymous>)\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n\nError: Letter content not available until June 30th, 2025\n    at LetterServer.validateDate (server.js:156)\n    at LetterServer.fetchLetter (server.js:42)',
+    8: 'Uncaught TypeError: Cannot read property \'content\' of undefined\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n    at <anonymous> (index.js:7)\n\nServer Error 503: Service Unavailable\n    at Promise.then (<anonymous>)\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n\nError: Letter content not available until July 7th, 2025\n    at LetterServer.validateDate (server.js:156)\n    at LetterServer.fetchLetter (server.js:42)',
+    9: 'Uncaught TypeError: Cannot read property \'content\' of undefined\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n    at <anonymous> (index.js:7)\n\nServer Error 503: Service Unavailable\n    at Promise.then (<anonymous>)\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n\nError: Letter content not available until July 14th, 2025\n    at LetterServer.validateDate (server.js:156)\n    at LetterServer.fetchLetter (server.js:42)',
+    10: 'Uncaught TypeError: Cannot read property \'content\' of undefined\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n    at <anonymous> (index.js:7)\n\nServer Error 503: Service Unavailable\n    at Promise.then (<anonymous>)\n    at LetterServer.fetchLetter (server.js:42)\n    at async LetterClient.initialize (client.js:15)\n\nError: Letter content not available until July 21st, 2025\n    at LetterServer.validateDate (server.js:156)\n    at LetterServer.fetchLetter (server.js:42)'
 };
+
+// Console commands for testing
+window.testLetters = {
+    // View specific letter by ID
+    viewLetter: function(id) {
+        if (LETTERS[id]) {
+            console.log(`\n=== Letter ${id} ===\n`);
+            console.log(LETTERS[id]);
+            console.log('\n==================\n');
+        } else {
+            console.error('Letter not found!');
+        }
+    },
+    
+    // View letter by date
+    viewByDate: function(date) {
+        const letterSlots = document.querySelectorAll('.letter-slot');
+        let found = false;
+        
+        letterSlots.forEach(slot => {
+            if (slot.dataset.date === date) {
+                const id = slot.dataset.letterId;
+                console.log(`\n=== Letter for ${date} (ID: ${id}) ===\n`);
+                console.log(LETTERS[id]);
+                console.log('\n==================\n');
+                found = true;
+            }
+        });
+        
+        if (!found) {
+            console.error('No letter found for that date!');
+        }
+    },
+    
+    // List all available letters
+    listAll: function() {
+        console.log('\n=== Available Letters ===\n');
+        Object.entries(LETTERS).forEach(([id, content]) => {
+            const letterSlots = document.querySelectorAll('.letter-slot');
+            let date = 'Unknown';
+            letterSlots.forEach(slot => {
+                if (slot.dataset.letterId === id) {
+                    date = slot.dataset.date;
+                }
+            });
+            console.log(`Letter ${id} (${date}):`);
+            console.log(content.substring(0, 50) + '...');
+            console.log('-------------------\n');
+        });
+    },
+
+    // Navigate to letter page directly
+    goToLetter: function(id) {
+        if (LETTERS[id]) {
+            localStorage.setItem('bypassLetterLock', 'true');
+            window.location.href = `letter.html?letter=${id}`;
+        } else {
+            console.error('Letter not found!');
+        }
+    }
+};
+
+// Add helpful console message
+console.log('\n=== Letter Testing Commands ===\n');
+console.log('testLetters.viewLetter(2) - View letter by ID');
+console.log('testLetters.viewByDate("2025-05-26") - View letter by date');
+console.log('testLetters.listAll() - List all available letters');
+console.log('testLetters.goToLetter(2) - Go directly to letter page\n');
 
 document.addEventListener('DOMContentLoaded', () => {
     if (window.AOS) AOS.init();
@@ -97,6 +165,49 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.style.display = 'none';
             letterBody.innerText = '';
             console.log('Modal closed (outside click)');
+        }
+    });
+
+    // Mobile App Button Functionality
+    const mobileAppBtn = document.getElementById('mobile-app-btn');
+    const appInstructionsModal = document.getElementById('app-instructions-modal');
+    const closeBtns = document.querySelectorAll('.close-btn');
+
+    // Function to trigger the shooting animation
+    function triggerShootAnimation() {
+        if (mobileAppBtn) {
+            mobileAppBtn.style.animation = 'none';
+            mobileAppBtn.offsetHeight; // Force reflow
+            mobileAppBtn.style.animation = 'shoot-up 1.2s ease-in-out forwards';
+        }
+    }
+
+    // Add console command
+    window.shootButton = triggerShootAnimation;
+
+    if (mobileAppBtn) {
+        // Set up the shooting animation after 15 seconds
+        setTimeout(triggerShootAnimation, 15000);
+
+        mobileAppBtn.addEventListener('click', function() {
+            appInstructionsModal.style.display = 'flex';
+        });
+    }
+
+    // Close modal when clicking the close button
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
         }
     });
 }); 
