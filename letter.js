@@ -16,15 +16,105 @@ const MANUAL_UNLOCK = {
 // Letter content framework (should match script.js)
 const LETTERS = {
     1: 'My dearest <span class="wiggle">Olivia</span>,<br><br>I really hope you <span class="grow">like</span> this <span class="spinny">website</span> I built for you! Every single <span class="rainbow">Monday</span> from now until the 21st will have a <span class="confetti-word sparkle">new letter</span> for <span class="hearts">you</span>! While this isn\'t a replacement for <span class="bounce">paper letters</span>, I want you to have a <span class="stars">reminder</span> on the mission field of just how much I <span class="rainbow hearts">love you</span>.<br>Though this next season of life is going to be <span class="shaky">hard</span>, know that I\'m <span class="sparkle">praying</span> for you every day and thinking of you every night as I rest my <span class="wiggle">head</span>. This website will CONSTANTLY be getting <span class="spinny">updates</span> of how much I <span class="hearts">love you</span>. There\'s so many <span class="confetti-word">unfinished ideas</span> that I have that I want to <span class="grow">add</span>, and promise I\'ll make time to <span class="bounce">update</span> this website (as well as give you a call of course <span class="wiggle">baby</span>). In the meantime, let\'s <span class="rainbow">enjoy</span> the time we have together. And know that no matter what happens, or how <span class="shaky">busy</span> life gets, I\'m always here for <span class="hearts">you</span>.<br><br>Love,<br><span class="sparkle">The Boy</span>',
-    2: 'Letter for May 26th, 2025... (write your letter here)',
-    3: 'Letter for June 2nd, 2025... (write your letter here)',
-    4: 'Letter for June 9th, 2025... (write your letter here)',
-    5: 'Letter for June 16th, 2025... (write your letter here)',
-    6: 'Letter for June 23rd, 2025... (write your letter here)',
-    7: 'Letter for June 30th, 2025... (write your letter here)',
-    8: 'Letter for July 7th, 2025... (write your letter here)',
-    9: 'Letter for July 14th, 2025... (write your letter here)',
-    10: 'Letter for July 21st, 2025... (write your letter here)',
+    2: `Uncaught TypeError: Cannot read property 'content' of server side undefined<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br>
+    at &lt;anonymous&gt; (index.js:7)<br><br>
+    Server Error 503: Service Unavailable<br>
+    at Promise.then (&lt;anonymous&gt;)<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br><br>
+    Error: Letter content not available until May 26th, 2025<br>
+    at LetterServer.validateDate (server.js:156)<br>
+    at LetterServer.fetchLetter (server.js:42)`,
+    3: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br>
+    at &lt;anonymous&gt; (index.js:7)<br><br>
+    Server Error 503: Service Unavailable<br>
+    at Promise.then (&lt;anonymous&gt;)<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br><br>
+    Error: Letter content not available until May 26th, 2025<br>
+    at LetterServer.validateDate (server.js:156)<br>
+    at LetterServer.fetchLetter (server.js:42)`,
+    4: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br>
+    at &lt;anonymous&gt; (index.js:7)<br><br>
+    Server Error 503: Service Unavailable<br>
+    at Promise.then (&lt;anonymous&gt;)<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br><br>
+    Error: Letter content not available until May 26th, 2025<br>
+    at LetterServer.validateDate (server.js:156)<br>
+    at LetterServer.fetchLetter (server.js:42)`,
+    5: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br>
+    at &lt;anonymous&gt; (index.js:7)<br><br>
+    Server Error 503: Service Unavailable<br>
+    at Promise.then (&lt;anonymous&gt;)<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br><br>
+    Error: Letter content not available until May 26th, 2025<br>
+    at LetterServer.validateDate (server.js:156)<br>
+    at LetterServer.fetchLetter (server.js:42)`,
+    6: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br>
+    at &lt;anonymous&gt; (index.js:7)<br><br>
+    Server Error 503: Service Unavailable<br>
+    at Promise.then (&lt;anonymous&gt;)<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br><br>
+    Error: Letter content not available until May 26th, 2025<br>
+    at LetterServer.validateDate (server.js:156)<br>
+    at LetterServer.fetchLetter (server.js:42)`,
+    7: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br>
+    at &lt;anonymous&gt; (index.js:7)<br><br>
+    Server Error 503: Service Unavailable<br>
+    at Promise.then (&lt;anonymous&gt;)<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br><br>
+    Error: Letter content not available until May 26th, 2025<br>
+    at LetterServer.validateDate (server.js:156)<br>
+    at LetterServer.fetchLetter (server.js:42)`,
+    8: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br>
+    at &lt;anonymous&gt; (index.js:7)<br><br>
+    Server Error 503: Service Unavailable<br>
+    at Promise.then (&lt;anonymous&gt;)<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br><br>
+    Error: Letter content not available until May 26th, 2025<br>
+    at LetterServer.validateDate (server.js:156)<br>
+    at LetterServer.fetchLetter (server.js:42)`,
+    9: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br>
+    at &lt;anonymous&gt; (index.js:7)<br><br>
+    Server Error 503: Service Unavailable<br>
+    at Promise.then (&lt;anonymous&gt;)<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br><br>
+    Error: Letter content not available until May 26th, 2025<br>
+    at LetterServer.validateDate (server.js:156)<br>
+    at LetterServer.fetchLetter (server.js:42)`,
+    10: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br>
+    at &lt;anonymous&gt; (index.js:7)<br><br>
+    Server Error 503: Service Unavailable<br>
+    at Promise.then (&lt;anonymous&gt;)<br>
+    at LetterServer.fetchLetter (server.js:42)<br>
+    at async LetterClient.initialize (client.js:15)<br><br>
+    Error: Letter content not available until May 26th, 2025<br>
+    at LetterServer.validateDate (server.js:156)<br>
+    at LetterServer.fetchLetter (server.js:42)`,
 };
 
 // Dates for each letter (should match order in LETTERS)
@@ -180,8 +270,12 @@ document.addEventListener('DOMContentLoaded', () => {
     letterId = Number(letterId); // force number
     const letterContentDiv = document.getElementById('letter-content');
 
-    const unlocked = isLetterUnlocked(letterId);
-    console.log('letterId:', letterId, 'unlocked:', unlocked, 'manual unlock:', MANUAL_UNLOCK[letterId]);
+    // Bypass flag for dev/console access
+    const bypass = localStorage.getItem('bypassLetterLock') === 'true';
+    if (bypass) localStorage.removeItem('bypassLetterLock');
+
+    const unlocked = isLetterUnlocked(letterId) || bypass;
+    console.log('letterId:', letterId, 'unlocked:', unlocked, 'manual unlock:', MANUAL_UNLOCK[letterId], 'bypass:', bypass);
 
     if (!unlocked) {
         // Show popup
