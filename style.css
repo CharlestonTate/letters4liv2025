@@ -231,24 +231,57 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 4rem;
+    padding: 4rem 2rem;
     background: var(--color-bg);
     position: relative;
 }
 #letter-content {
-    background: none;
+    background: #fff;
     border-radius: 0;
-    box-shadow: none;
-    padding: 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    padding: 3rem;
     font-size: 1.2rem;
-    max-width: 600px;
+    max-width: 800px;
     width: 90vw;
     white-space: pre-line;
     margin-top: 1.5rem;
     font-family: var(--font-main);
     line-height: 2.1;
     letter-spacing: 0.04em;
+    position: relative;
+    color: var(--color-title);
+    z-index: 1;
 }
+
+#letter-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(#eee .1em, transparent .1em);
+    background-size: 100% 1.2em;
+    z-index: -2;
+    pointer-events: none;
+}
+
+#letter-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 48%, #e0d5c5 49%, #e0d5c5 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, #e0d5c5 49%, #e0d5c5 51%, transparent 52%);
+    background-size: 30px 30px;
+    opacity: 0.1;
+    z-index: -1;
+    pointer-events: none;
+}
+
 .back-btn {
     background: var(--color-btn-bg);
     color: var(--color-btn-text);
@@ -398,4 +431,103 @@ h1 {
         font-size: 0.95rem;
         padding: 0.4rem 0.8rem;
     }
+}
+
+/* Mobile App Button Styles */
+.mobile-app-btn {
+    display: none; /* Hidden by default on desktop */
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-btn-bg);
+    color: var(--color-btn-text);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 100;
+    animation: wiggle-pause 2s infinite;
+}
+
+@keyframes wiggle-pause {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    5% { transform: translateX(-50%) rotate(-5deg); }
+    10% { transform: translateX(-50%) rotate(5deg); }
+    15% { transform: translateX(-50%) rotate(-5deg); }
+    20% { transform: translateX(-50%) rotate(5deg); }
+    25% { transform: translateX(-50%) rotate(0deg); }
+    /* The remaining 75% of the time (1.5s) is the pause */
+}
+
+@keyframes shoot-up {
+    0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+    40% { transform: translateX(-50%) translateY(-200px); opacity: 1; }
+    100% { transform: translateX(-50%) translateY(100vh); opacity: 0; }
+}
+
+/* Show button only on mobile */
+@media (max-width: 768px) {
+    .mobile-app-btn {
+        display: block;
+    }
+
+    .letter-page-container {
+        padding: 3rem 1rem;
+    }
+
+    #letter-content {
+        padding: 2rem;
+        font-size: 1.1rem;
+        line-height: 1.9;
+    }
+
+    #letter-content::before {
+        background: linear-gradient(#eee .1em, transparent .1em);
+        background-size: 100% 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .letter-page-container {
+        padding: 2rem 0.5rem;
+    }
+
+    #letter-content {
+        padding: 1.5rem;
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+}
+
+/* App Instructions Modal Styles */
+#app-instructions-modal .modal-content {
+    max-width: 400px;
+    text-align: left;
+}
+
+#app-instructions-modal h2 {
+    font-family: var(--font-title);
+    color: var(--color-title);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#app-instructions-modal ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+#app-instructions-modal li {
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+
+#app-instructions-modal p {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--color-title);
 }
