@@ -1,6 +1,6 @@
 // --- Manual Unlock Variables (set to true to force unlock) ---
 const MANUAL_UNLOCK = {
-    1: false, // May 19, 2025
+    1: true, // May 19, 2025
     2: false, // May 26, 2025
     3: false, // June 2, 2025
     4: false, // June 9, 2025
@@ -16,17 +16,7 @@ const MANUAL_UNLOCK = {
 // Letter content framework (should match script.js)
 const LETTERS = {
     1: 'My dearest <span class="wiggle">Olivia</span>,<br><br>I really hope you <span class="grow">like</span> this <span class="spinny">website</span> I built for you! Every single <span class="rainbow">Monday</span> from now until the 21st will have a <span class="confetti-word sparkle">new letter</span> for <span class="hearts">you</span>! While this isn\'t a replacement for <span class="bounce">paper letters</span>, I want you to have a <span class="stars">reminder</span> on the mission field of just how much I <span class="rainbow hearts">love you</span>.<br>Though this next season of life is going to be <span class="shaky">hard</span>, know that I\'m <span class="sparkle">praying</span> for you every day and thinking of you every night as I rest my <span class="wiggle">head</span>. This website will CONSTANTLY be getting <span class="spinny">updates</span> of how much I <span class="hearts">love you</span>. There\'s so many <span class="confetti-word">unfinished ideas</span> that I have that I want to <span class="grow">add</span>, and promise I\'ll make time to <span class="bounce">update</span> this website (as well as give you a call of course <span class="wiggle">baby</span>). In the meantime, let\'s <span class="rainbow">enjoy</span> the time we have together. And know that no matter what happens, or how <span class="shaky">busy</span> life gets, I\'m always here for <span class="hearts">you</span>.<br><br>Love,<br><span class="sparkle">The Boy</span>',
-    2: `Uncaught TypeError: Cannot read property 'content' of server side undefined<br>
-    at LetterServer.fetchLetter (server.js:42)<br>
-    at async LetterClient.initialize (client.js:15)<br>
-    at &lt;anonymous&gt; (index.js:7)<br><br>
-    Server Error 503: Service Unavailable<br>
-    at Promise.then (&lt;anonymous&gt;)<br>
-    at LetterServer.fetchLetter (server.js:42)<br>
-    at async LetterClient.initialize (client.js:15)<br><br>
-    Error: Letter content not available until May 26th, 2025<br>
-    at LetterServer.validateDate (server.js:156)<br>
-    at LetterServer.fetchLetter (server.js:42)`,
+    2: `My Dear Olivia,<br><br>Is it really time to leave for GenSend already?? Rahhh I'm going to miss you so much lovely. :(( I hope you had fun at Gwyns this last night and wanna hear all about it soon! This website has been so fun to add things too, and want to keep adding fun things anytime I think of you. We recently had our last GenSend meeting, and I've been able to connect and meet with a lot of people who are going to SLC! A few of them did GenSend last year with my Dad and me in LA, and we've even formulated a group to fly together out there! It's already been so awesome, the team we have in Logan City north of SLC doesn't have a lot of guys, but I know the connections I formulate with the ones we do have in our house will be so strong! And I'm excited to see what the Lord is going to do this summer.<br><br>I hope you know that there is never a day when I'll stop thinking of you and loving you. I want to learn this summer to love you better, and to really seek the Lord on what he wants for the rest of my life. I only ask that you do the same, and will stay committed to praying for you dearest.<br><br>Side note, be praying for the salvation of my Aunt(My Dad's sister) as she stayed here with my family this past week, I've realized that there is no fruit in her at all, she's very negative and I desperately pray for her soul.<br><br>I love and miss you, but am filled with so much hope from the Lord that this summer will be amazing. Text me when you get the chance yeah?<br><br>Yours,<br>-t8<3`,
     3: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
     at LetterServer.fetchLetter (server.js:42)<br>
     at async LetterClient.initialize (client.js:15)<br>
@@ -147,8 +137,7 @@ function isLetterUnlocked(letterId) {
     if (MANUAL_UNLOCK[letterId]) return true;
     const unlockDateStr = LETTER_DATES[letterId];
     if (!unlockDateStr) return false;
-    const unlockDate = new Date(unlockDateStr);
-    unlockDate.setHours(0, 0, 0, 0);
+    const unlockDate = new Date(unlockDateStr + 'T00:00:00-07:00'); // Set to start of day in PST
     const nowPST = getPSTTime();
     return nowPST >= unlockDate;
 }
