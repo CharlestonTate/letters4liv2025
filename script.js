@@ -112,8 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         letterSlots.forEach(slot => {
             const letterId = slot.dataset.letterId;
-            const letterDate = new Date(slot.dataset.date);
-            letterDate.setHours(0, 0, 0, 0); // Set to start of day
+            const letterDate = new Date(slot.dataset.date + 'T00:00:00-07:00'); // Set to start of day in PST
             // Manual unlock check
             if (MANUAL_UNLOCK[letterId] || currentPST >= letterDate) {
                 slot.classList.add('unlocked');
