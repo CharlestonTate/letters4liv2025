@@ -186,6 +186,18 @@ document.addEventListener('DOMContentLoaded', () => {
     checkLetterUnlock();
     setInterval(checkLetterUnlock, 60000);
 
+    // Add click handlers for all letters
+    document.querySelectorAll('.letter-slot').forEach(slot => {
+        slot.addEventListener('click', function(e) {
+            if (!slot.classList.contains('unlocked')) {
+                console.log('Letter is locked!');
+                return;
+            }
+            const letterId = slot.dataset.letterId;
+            window.location.href = `letter.html?letter=${letterId}`;
+        });
+    });
+
     // Secret functionality
     let clickCount = 0;
     let audio = null;
@@ -223,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     }
 
-    // Handle last letter clicks
+    // Handle last letter special clicks
     const lastLetter = document.querySelector('.letter-slot[data-date="2025-07-21"]');
     if (lastLetter) {
         lastLetter.addEventListener('click', e => {
@@ -242,15 +254,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     audio.currentTime = 0;
                 }
                 clickCount = 0;
-            }
-
-            // Normal letter functionality
-            if (!lastLetter.classList.contains('unlocked')) {
-                console.log('Letter is locked!');
+                e.stopPropagation(); // Prevent normal letter click
                 return;
             }
-            const letterId = lastLetter.dataset.letterId;
-            window.location.href = `letter.html?letter=${letterId}`;
         });
     }
 
