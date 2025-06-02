@@ -1,8 +1,8 @@
 // --- Manual Unlock Variables (set to true to force unlock) ---
 const MANUAL_UNLOCK = {
     1: true, // May 19, 2025
-    2: false, // May 26, 2025
-    3: false, // June 2, 2025
+    2: true, // May 26, 2025
+    3: true, // June 2, 2025
     4: false, // June 9, 2025
     5: false, // June 16, 2025
     6: false, // June 23, 2025
@@ -122,13 +122,18 @@ function getPSTTime() {
 }
 
 function isLetterUnlocked(letterId) {
-    console.log('letterId:', letterId, 'manual unlock:', MANUAL_UNLOCK[letterId]);
+    console.log('DEBUG: letterId:', letterId, 'manual unlock:', MANUAL_UNLOCK[letterId]);
+    console.log('DEBUG: MANUAL_UNLOCK object:', MANUAL_UNLOCK);
     if (!letterId) return false;
-    if (MANUAL_UNLOCK[letterId]) return true;
+    if (MANUAL_UNLOCK[letterId]) {
+        console.log('DEBUG: Manual unlock is TRUE for letter', letterId);
+        return true;
+    }
     const unlockDateStr = LETTER_DATES[letterId];
     if (!unlockDateStr) return false;
     const unlockDate = new Date(unlockDateStr + 'T00:00:00-07:00'); // Set to start of day in PST
     const nowPST = getPSTTime();
+    console.log('DEBUG: Date check - unlockDate:', unlockDate, 'nowPST:', nowPST, 'result:', nowPST >= unlockDate);
     return nowPST >= unlockDate;
 }
 
@@ -239,6 +244,34 @@ function starsRain() {
     }
 }
 
+// Secret pattern and audio player
+const PATTERN = ['hearts', 'hearts', 'sparkle', 'hearts']; // Pattern: love-love-God-love
+let currentPattern = [];
+let audio = null;
+
+function checkPattern() {
+    if (currentPattern.length > PATTERN.length) {
+        currentPattern.shift(); // Remove oldest click
+    }
+    
+    if (currentPattern.join(',') === PATTERN.join(',')) {
+        if (!audio) {
+            audio = new Audio('sometimesithinkaboutlosingyou.mp3');
+            audio.volume = 0.5; // Start at 50% volume
+        }
+        
+        if (audio.paused) {
+            audio.play().catch(e => console.log('Audio play failed:', e));
+            console.log('Playing music...');
+        } else {
+            audio.pause();
+            audio.currentTime = 0;
+            console.log('Stopping music...');
+        }
+        currentPattern = []; // Reset pattern
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Slow down AOS
     if (window.AOS) {
@@ -248,6 +281,46 @@ document.addEventListener('DOMContentLoaded', () => {
     let letterId = getLetterIdFromUrl();
     letterId = Number(letterId); // force number
     const letterContentDiv = document.getElementById('letter-content');
+
+    // FORCE UNLOCK FOR DEBUGGING - Remove this after testing
+    if (letterId === 3) {
+        console.log('FORCE UNLOCKING LETTER 3 FOR DEBUGGING');
+        letterContentDiv.innerHTML = LETTERS[3];
+        if (window.AOS) {
+            AOS.refresh();
+        }
+        
+        // Add all the click handlers for effects
+        letterContentDiv.querySelectorAll('.confetti-word').forEach(el => {
+            el.style.cursor = 'pointer';
+            el.addEventListener('click', e => {
+                const effectClasses = ['wiggle','bounce','spinny','grow','shaky','sparkle','hearts','stars'];
+                if (effectClasses.some(cls => el.classList.contains(cls))) return;
+                const rect = el.getBoundingClientRect();
+                const x = rect.left + rect.width/2 + window.scrollX;
+                const y = rect.top + rect.height/2 + window.scrollY;
+                confettiAt(x, y);
+            });
+        });
+
+        letterContentDiv.querySelectorAll('.hearts').forEach(el => {
+            el.style.cursor = 'pointer';
+            el.addEventListener('click', e => {
+                const rect = el.getBoundingClientRect();
+                const x = rect.left + rect.width/2 + window.scrollX;
+                const y = rect.top + rect.height/2 + window.scrollY;
+                heartsAt(x, y);
+            });
+        });
+
+        letterContentDiv.querySelectorAll('.stars').forEach(el => {
+            el.style.cursor = 'pointer';
+            el.addEventListener('click', e => {
+                starsRain();
+            });
+        });
+        return; // Exit early
+    }
 
     // Bypass flag for dev/console access
     const bypass = localStorage.getItem('bypassLetterLock') === 'true';
@@ -344,4 +417,74 @@ document.addEventListener('DOMContentLoaded', () => {
             starsRain();
         });
     });
+
+    // Add pattern detection to hearts
+    document.body.addEventListener('click', (e) => {
+        const target = e.target.closest('.hearts, .sparkle');
+        if (target) {
+            if (target.classList.contains('hearts')) {
+                currentPattern.push('hearts');
+            } else if (target.classList.contains('sparkle')) {
+                currentPattern.push('sparkle');
+            }
+            checkPattern();
+        }
+    });
+});
+
+// Global debug command to force view any letter
+window.forceLetter = function(id) {
+    const letterContentDiv = document.getElementById('letter-content');
+    if (LETTERS[id]) {
+        console.log(`Force loading letter ${id}`);
+        letterContentDiv.innerHTML = LETTERS[id];
+        // Refresh AOS animations
+        if (window.AOS) {
+            AOS.refresh();
+        }
+        // Add effect handlers
+        letterContentDiv.querySelectorAll('.confetti-word').forEach(el => {
+            el.style.cursor = 'pointer';
+            el.addEventListener('click', e => {
+                const effectClasses = ['wiggle','bounce','spinny','grow','shaky','sparkle','hearts','stars'];
+                if (effectClasses.some(cls => el.classList.contains(cls))) return;
+                const rect = el.getBoundingClientRect();
+                const x = rect.left + rect.width/2 + window.scrollX;
+                const y = rect.top + rect.height/2 + window.scrollY;
+                confettiAt(x, y);
+            });
+        });
+        letterContentDiv.querySelectorAll('.hearts').forEach(el => {
+            el.style.cursor = 'pointer';
+            el.addEventListener('click', e => {
+                const rect = el.getBoundingClientRect();
+                const x = rect.left + rect.width/2 + window.scrollX;
+                const y = rect.top + rect.height/2 + window.scrollY;
+                heartsAt(x, y);
+            });
+        });
+        letterContentDiv.querySelectorAll('.stars').forEach(el => {
+            el.style.cursor = 'pointer';
+            el.addEventListener('click', e => {
+                starsRain();
+            });
+        });
+    } else {
+        console.error(`Letter ${id} not found!`);
+    }
+};
+
+console.log('Debug command available: forceLetter(3) - to force view letter 3');
+
+// Add volume controls
+document.addEventListener('keydown', (e) => {
+    if (!audio) return;
+    
+    if (e.key === 'ArrowUp') {
+        audio.volume = Math.min(1, audio.volume + 0.1);
+        console.log('Volume up:', Math.round(audio.volume * 100) + '%');
+    } else if (e.key === 'ArrowDown') {
+        audio.volume = Math.max(0, audio.volume - 0.1);
+        console.log('Volume down:', Math.round(audio.volume * 100) + '%');
+    }
 }); 
