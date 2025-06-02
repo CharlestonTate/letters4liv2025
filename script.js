@@ -1,8 +1,8 @@
 // --- Manual Unlock Variables (set to true to force unlock) ---
 const MANUAL_UNLOCK = {
     1: true, // May 19, 2025
-    2: false, // May 26, 2025
-    3: false, // June 2, 2025
+    2: true, // May 26, 2025
+    3: true, // June 2, 2025
     4: false, // June 9, 2025
     5: false, // June 16, 2025
     6: false, // June 23, 2025
@@ -95,14 +95,69 @@ console.log('testLetters.viewByDate("2025-05-26") - View letter by date');
 console.log('testLetters.listAll() - List all available letters');
 console.log('testLetters.goToLetter(2) - Go directly to letter page\n');
 
+// Secret corner pattern for music
+let cornerClicks = new Set();
+let audio = null;
+
+function checkCornerPattern(slot) {
+    const grid = document.querySelector('.letters-grid');
+    const slots = grid.querySelectorAll('.letter-slot');
+    const firstSlot = slots[0];
+    const lastSlot = slots[slots.length - 1];
+    const thirdSlot = slots[2];
+    const eighthSlot = slots[7];
+
+    // Determine which corner was clicked
+    let corner = '';
+    if (slot === firstSlot) corner = 'top-left';
+    if (slot === thirdSlot) corner = 'top-right';
+    if (slot === eighthSlot) corner = 'bottom-left';
+    if (slot === lastSlot) corner = 'bottom-right';
+
+    if (corner) {
+        cornerClicks.add(corner);
+        console.log('Corner clicked:', corner, 'Total corners:', cornerClicks.size);
+
+        // Check if all corners have been clicked
+        if (cornerClicks.size === 4) {
+            if (!audio) {
+                audio = new Audio('sometimesithinkaboutlosingyou.mp3');
+                audio.volume = 0.5; // Start at 50% volume
+            }
+
+            if (audio.paused) {
+                audio.play().catch(e => console.log('Audio play failed:', e));
+                console.log('Playing music...');
+            } else {
+                audio.pause();
+                audio.currentTime = 0;
+                console.log('Stopping music...');
+            }
+            cornerClicks.clear(); // Reset the pattern
+        }
+    }
+}
+
+// Add volume controls
+document.addEventListener('keydown', (e) => {
+    if (!audio) return;
+    
+    if (e.key === 'ArrowUp') {
+        audio.volume = Math.min(1, audio.volume + 0.1);
+        console.log('Volume up:', Math.round(audio.volume * 100) + '%');
+    } else if (e.key === 'ArrowDown') {
+        audio.volume = Math.max(0, audio.volume - 0.1);
+        console.log('Volume down:', Math.round(audio.volume * 100) + '%');
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     if (window.AOS) AOS.init();
 
     // Function to get current PST time
     function getPSTTime() {
         const now = new Date();
-        const pstTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
-        return pstTime;
+        return new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
     }
 
     // Function to check if a letter should be unlocked
@@ -112,8 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         letterSlots.forEach(slot => {
             const letterId = slot.dataset.letterId;
-            const letterDate = new Date(slot.dataset.date + 'T00:00:00-07:00'); // Set to start of day in PST
-            // Manual unlock check
+            const letterDate = new Date(slot.dataset.date + 'T00:00:00-07:00');
             if (MANUAL_UNLOCK[letterId] || currentPST >= letterDate) {
                 slot.classList.add('unlocked');
                 const lockIcon = slot.querySelector('.lock-icon');
@@ -128,85 +182,94 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Check letter unlock status on page load
+    // Check letter unlock status
     checkLetterUnlock();
     setInterval(checkLetterUnlock, 60000);
 
-    // Modal logic
-    const modal = document.getElementById('letter-modal');
-    const modalContent = document.querySelector('.modal-content');
-    const letterBody = document.getElementById('letter-body');
-    const closeBtn = document.querySelector('.close-btn');
+    // Secret functionality
+    let clickCount = 0;
+    let audio = null;
+    let messageTimeout = null;
 
-    // Click handler for unlocked letters
-    document.querySelectorAll('.letter-slot').forEach(slot => {
-        slot.addEventListener('click', function (e) {
-            if (!slot.classList.contains('unlocked')) {
+    function showSecretMessage() {
+        const existingMessage = document.querySelector('.secret-message');
+        if (existingMessage) existingMessage.remove();
+
+        const message = document.createElement('div');
+        message.className = 'secret-message';
+        message.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border-radius: 8px;
+            font-family: Quicksand, sans-serif;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 9999;
+        `;
+        message.textContent = 'I sometimes think about losing you.';
+        document.body.appendChild(message);
+
+        requestAnimationFrame(() => message.style.opacity = '1');
+
+        if (messageTimeout) clearTimeout(messageTimeout);
+        messageTimeout = setTimeout(() => {
+            message.style.opacity = '0';
+            setTimeout(() => message.remove(), 500);
+        }, 5000);
+    }
+
+    // Handle last letter clicks
+    const lastLetter = document.querySelector('.letter-slot[data-date="2025-07-21"]');
+    if (lastLetter) {
+        lastLetter.addEventListener('click', e => {
+            clickCount++;
+            if (clickCount === 10) {
+                if (!audio) {
+                    audio = new Audio('sometimesithinkaboutlosingyou.mp3');
+                    audio.volume = 0.5;
+                }
+                
+                if (audio.paused) {
+                    audio.play().catch(err => console.log('Audio failed:', err));
+                    showSecretMessage();
+                } else {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+                clickCount = 0;
+            }
+
+            // Normal letter functionality
+            if (!lastLetter.classList.contains('unlocked')) {
                 console.log('Letter is locked!');
                 return;
             }
-            const letterId = slot.dataset.letterId;
-            console.log('Navigating to letter page for letter', letterId);
+            const letterId = lastLetter.dataset.letterId;
             window.location.href = `letter.html?letter=${letterId}`;
         });
-    });
+    }
 
-    // Close modal logic
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-        letterBody.innerText = '';
-        console.log('Modal closed');
-    });
-
-    // Optional: close modal on outside click
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-            letterBody.innerText = '';
-            console.log('Modal closed (outside click)');
+    // Reset click count when clicking elsewhere
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.letter-slot[data-date="2025-07-21"]')) {
+            clickCount = 0;
         }
     });
 
-    // Mobile App Button Functionality
-    const mobileAppBtn = document.getElementById('mobile-app-btn');
-    const appInstructionsModal = document.getElementById('app-instructions-modal');
-    const closeBtns = document.querySelectorAll('.close-btn');
-
-    // Function to trigger the shooting animation
-    function triggerShootAnimation() {
-        if (mobileAppBtn) {
-            mobileAppBtn.style.animation = 'none';
-            mobileAppBtn.offsetHeight; // Force reflow
-            mobileAppBtn.style.animation = 'shoot-up 1.2s ease-in-out forwards';
-        }
-    }
-
-    // Add console command
-    window.shootButton = triggerShootAnimation;
-
-    if (mobileAppBtn) {
-        // Set up the shooting animation after 15 seconds
-        setTimeout(triggerShootAnimation, 15000);
-
-        mobileAppBtn.addEventListener('click', function() {
-            appInstructionsModal.style.display = 'flex';
-        });
-    }
-
-    // Close modal when clicking the close button
-    closeBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const modal = this.closest('.modal');
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        });
-    });
-
-    // Close modal when clicking outside
-    window.addEventListener('click', function(event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.style.display = 'none';
+    // Volume controls
+    document.addEventListener('keydown', e => {
+        if (!audio) return;
+        if (e.key === 'ArrowUp') {
+            audio.volume = Math.min(1, audio.volume + 0.1);
+            console.log('Volume:', Math.round(audio.volume * 100) + '%');
+        } else if (e.key === 'ArrowDown') {
+            audio.volume = Math.max(0, audio.volume - 0.1);
+            console.log('Volume:', Math.round(audio.volume * 100) + '%');
         }
     });
 }); 
