@@ -198,6 +198,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Mobile app button functionality
+    const mobileAppBtn = document.getElementById('mobile-app-btn');
+    const appInstructionsModal = document.getElementById('app-instructions-modal');
+    const closeBtns = document.querySelectorAll('.close-btn');
+
+    if (mobileAppBtn) {
+        mobileAppBtn.addEventListener('click', () => {
+            appInstructionsModal.style.display = 'block';
+            if (window.AOS) AOS.refresh();
+        });
+    }
+
+    // Close button functionality for all modals
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modal = btn.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            e.target.style.display = 'none';
+        }
+    });
+
     // Secret functionality
     let clickCount = 0;
     let audio = null;
