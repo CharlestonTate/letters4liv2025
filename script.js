@@ -4,8 +4,8 @@ const MANUAL_UNLOCK = {
     2: true, // May 26, 2025
     3: true, // June 2, 2025
     4: true, // June 9, 2025
-    5: false, // June 16, 2025
-    6: false, // June 23, 2025
+    5: true, // June 16, 2025
+    6: true, // June 23, 2025
     7: false, // June 30, 2025
     8: false, // July 7, 2025
     9: false, // July 14, 2025
