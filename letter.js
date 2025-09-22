@@ -6,12 +6,19 @@ const MANUAL_UNLOCK = {
     4: true, // June 9, 2025
     5: true, // June 16, 2025
     6: true, // June 23, 2025
-    7: false, // June 30, 2025
-    8: false, // July 7, 2025
-    9: true, // July 14, 2025
-    10: false // July 21, 2025
+    7: true, // June 30, 2025
+    8: false, // July 7, 2025 - LOCKED
+    9: false, // July 14, 2025 - LOCKED
+    10: false // July 21, 2025 - LOCKED
 };
 // -----------------------------------------------------------
+
+// Three Special Letters content (should match script.js)
+const SPECIAL_LETTERS = {
+    11: `To Olivia,<br><br>You may never see this, you probably forgot that this website even existed, but it still does, and I'm sorry I never finished it. I use the word finished because I wrote this entire website very quickly, so when it came to fixing all the bugs that came along with it, whilst I was in Utah it was a lot! But looking back I totally could have fixed it right up, I was just wrapped up in other things. I own up to this.<br><br>This portion of the website will hold letters I write to you that I intend to never send you, that is unless you find them. At this point, we're broken up and split apart, at the moment I'm confused as to why, but instead of pleading and hoping for the day you come back, I will continue to fix my gaze towards the one who holds our tomorrow. My 19th birthday was the worst day of my life, yet, I have peace through Jesus Christ which surpasses all understanding, and amidst the pain of saying goodbye to you that one night under the gazebo, I have faith and trust that we're both going to be okay!<br><br>I ran into a saftey services officer tonight by the name of Robert Muceck, at least I think that's how you spell it lol! Anyways I was walking around with my word when I saw him, and began to ask him all kinds of questions about his life, that's when he asked me how I met the Lord, and after I was open about how I was doing with the breakup, he mentioned he talked to you, and I'll never not find you amazing. You're ability to talk to people and make them feel right at home is so amazing!<br><br>Our conversation was such a blessing to me and my life, Robert gave me such good advice, more than that, from after I reflected in the sunset, I realized the best thing I could do you Love you in this season is to let you go, fully knowing you will never come back, and that's okay. I ultimately made you my God, and that's not loving you at all. Please know I will always love you, not sure when the next entry of these will come, but do please know me and my family are always praying for you.`,
+    12: `To my <span class="wiggle">beloved Olivia</span>,<br><br>This second special letter is filled with <span class="sparkle">gratitude</span> and <span class="hearts">love</span>. I wanted to take a moment to tell you how much I <span class="grow">appreciate</span> everything you do for me.<br><br>Your <span class="hearts">patience</span> during this time apart, your <span class="hearts">support</span> for my mission work, and your <span class="hearts">unwavering love</span> mean more to me than you'll ever know. You are my <span class="rainbow">rock</span>, my <span class="hearts">anchor</span>, and my <span class="hearts">home</span>.<br><br>Thank you for being the most <span class="grow">wonderful</span> woman I've ever known.<br><br>Forever yours,<br>- <span class="wiggle">t8</span> <span class="hearts"><3</span>`,
+    13: `My <span class="wiggle">sweet Olivia</span>,<br><br>This final special letter is a <span class="sparkle">promise</span> and a <span class="hearts">dream</span>. I promise to love you with all my heart for the rest of my days, to support you in all your dreams, and to be the man you deserve.<br><br>I dream of our future together - all the <span class="rainbow">adventures</span> we'll have, the <span class="hearts">memories</span> we'll create, and the <span class="grow">love</span> that will only grow stronger with time.<br><br>You are my <span class="hearts">everything</span>, and I am so grateful to have you in my life.<br><br>With endless <span class="hearts">love</span> and <span class="hearts">devotion</span>,<br>- <span class="wiggle">t8</span> <span class="hearts"><3</span>`
+};
 
 // Letter content framework (should match script.js)
 const LETTERS = {
@@ -22,39 +29,9 @@ const LETTERS = {
     5: `To my <span class="wiggle">Olivia</span>,<br><br>This week by far has been one of the <span class="shaky">hardest</span> weeks by far, just really <span class="hearts">homesick</span> for my <span class="hearts">family</span> and making tons of calls back home. We've also had much <span class="shaky">difficulty</span> when it comes to feeling <span class="grow">supported</span> up here, we feel so <span class="shaky">distant</span> from all the other teams. Yet I am still so <span class="sparkle">faithful</span> that the <span class="sparkle">Lord</span> will move, I <span class="sparkle">pray</span> and ask that the <span class="sparkle">Lord</span> would bring forth <span class="grow">peace</span> for our team.<br><br>I <span class="hearts">love you</span> and <span class="hearts">miss you</span>, some nights I lay awake and I wish you were in my <span class="hearts">arms</span> again, and I wish our <span class="hearts">lips</span> could meet. I'm so <span class="grow">thankful</span> to have you and I <span class="sparkle">pray</span> to the <span class="sparkle">Lord</span> that he takes care of your <span class="hearts">heart</span> in this season of <span class="shaky">distance</span>. Know that I think you serving the <span class="sparkle">Lord</span> is so unbelieveably <span class="rainbow">attractive</span> to me. Out here there are so many <span class="grow">awesome</span> people, all of them really remind me of <span class="stars">stardew valley</span>, in that the more you stop by their shops the more cutscenes and <span class="hearts">hearts</span> you get! I know that's <span class="wiggle">silly</span> but it really is what it feels like. With that in mind... I really wanna make you a <span class="grow">farming game</span> someday! Where you can walk around and <span class="sparkle">evangelize</span> haha.<br><br>In the meantime, know that I <span class="hearts">love</span> and <span class="hearts">miss you</span> <span class="grow">earnestly</span>, and that I'm always <span class="hearts">thinking about you</span>.<br><br>I <span class="hearts">love you</span> <span class="wiggle">Olivia Lee</span>,<br>from: <span class="sparkle">the boy</span>.`,
     6: `Hey <span class="wiggle">Baby</span>! I finally fixed the <span class="grow">website</span>!<br><br>This past week has been so unbelievably <span class="shaky">hard</span> for my entire team. I can't say much here just becuase I don't want to <span class="wiggle">gossip</span>, but the <span class="shaky">patience</span> of our team has been really <span class="shaky">lacking</span>, and I think the guys are getting more and more interested in <span class="grow">results</span> rather than putting <span class="stars">rocks</span> in peoples shoes and planting <span class="grow">seeds</span>. Me and a few others from our team have made great <span class="grow">progress</span> with a large local college community of LDS USU students called "The <span class="spinny">Institute</span>", so much so that they called us up to share our <span class="sparkle">testimonies</span> in front of the entire class, as well as they've invited us into their <span class="hearts">lives</span> and we started going to their <span class="bounce">parties</span> at their <span class="spinny">Stakes</span>!(Mormon Buildings). But as for my team members, they are very <span class="shaky">intense</span> when it comes to sharing the <span class="sparkle">Gospel</span>, so much so to the point where we don't get a follow up <span class="grow">conversation</span> with most <span class="spinny">Missionaries</span>, which is <span class="shaky">hard</span>, but what I've been pushing from the start is the notion that we are to be good <span class="grow">stewards</span> of the <span class="sparkle">Gospel</span> that we've been given, and though it's an <span class="rainbow">urgent</span> message to all of God's creation, we are to drive our <span class="grow">conversations</span> with <span class="grow">questions</span> and <span class="hearts">genuine interest</span>, rather than the interest of proving someone wrong with <span class="wiggle">theology</span>.<br><br><div style="background: linear-gradient(135deg, #f5e3c8, #e9d6b0); border-left: 4px solid #8b7355; padding: 1.5rem; margin: 2rem 0; border-radius: 8px; font-style: italic; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"><span style="font-weight: bold; color: #2c3e50; font-size: 1.1rem; display: block; margin-bottom: 1rem;">1 Corinthians 13:1-3</span><span style="color: #2c3e50; line-height: 1.6;">"If I speak in the tongues of men and of angels, but have not <span class="hearts">love</span>, I am a noisy gong or a clanging cymbal. And if I have prophetic powers, and understand all mysteries and all knowledge, and if I have all <span class="sparkle">faith</span>, so as to remove mountains, but have not <span class="hearts">love</span>, I am nothing. If I give away all I have, and if I deliver up my body to be burned, but have not <span class="hearts">love</span>, I gain nothing."</span></div><br><br>This <span class="sparkle">verse</span> has carried me through so much, and it's something I have to <span class="sparkle">preach</span> to myself every single day. But anytime I try and spur <span class="sparkle">verses</span> such as these to my team, they do not agree that this should be the <span class="grow">approach</span> of <span class="sparkle">evangelism</span>, I only <span class="sparkle">pray</span> that the <span class="sparkle">Lord</span> breaks their <span class="hearts">heart</span> for that which he's broken in mine.<br><br>I ask that you would <span class="sparkle">pray</span> for <span class="grow">patience</span> for my team <span class="wiggle">baby</span>? I would greatly appreciate someone <span class="sparkle">praying</span> with me for this! I keep finding myself sneeking away from our <span class="hearts">house</span> to <span class="sparkle">preach</span> the <span class="sparkle">Gospel</span>, which is kinda <span class="wiggle">weird</span> but hey it is what it is.<br><br>Know that I'm <span class="sparkle">praying</span> for us daily, and I hope and <span class="sparkle">pray</span> that the <span class="sparkle">Lord</span> is moving in <span class="rainbow">LA</span>!<br><br>Yours, - <span class="wiggle">t8</span> <span class="hearts"><3</span>`,
     7: `To my Olivia,<br><br>EDIT: finally fixed my website again! I finally fixed the clock that is lowk displaying errors and what not, I've just programmed such a good firewall to keep you from reading my letters early and seeing behind the scenes LOL!<br><br>I digress, recently, life has been really sweet here in Utah, bitter sweet I should say. Me and the team have finally reached the end of the honeymoon phase of the trip, Marcos is acting a little distant and everyone else is getting burnt out, but in this I've found so much peace with the Lord. I've been seeking him every morning, his quiet voice has been the loudest it's ever been ever since I've given him time to speak. It's going to be so hard to leave Utah, I've kinda fallen in love with this place if I'm completely honest! But I promised you and my family I would come back. Truly I'd say I've run the race here, and I can tell the Lord's face is smiling upon me! Everything has never been perfect, and even though the guys on my team sometimes don't seem to find the good in much, I can tell the Lord has done a marvelous work in their souls on this trip, and same with mine!<br><br>How are you? I've been praying for you, I feel like we haven't spoken in so long, but I'm so faithful to come back to you to talk and can't wait  to hear about all the different things the Lord has done in your heart and life. You're letter is one that I read often, and I love the middle and ending sections of the letter where you give me to the Lord yet express your deep care and love for me, I felt so beloved. I want to only express the same to you in everything, I give you to the Lord Olivia.<br><br>Anyways, I could write to you in this website for hours, but I really need to get to mailing you your letter in Utah! God bless you Olivia, and I love you always.<br><br>Yours,<br>- Tate <3`,
-    8: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
-    at LetterServer.fetchLetter (server.js:42)<br>
-    at async LetterClient.initialize (client.js:15)<br>
-    at &lt;anonymous&gt; (index.js:7)<br><br>
-    Server Error 503: Service Unavailable<br>
-    at Promise.then (&lt;anonymous&gt;)<br>
-    at LetterServer.fetchLetter (server.js:42)<br>
-    at async LetterClient.initialize (client.js:15)<br><br>
-    Error: Letter content not available until May 26th, 2025<br>
-    at LetterServer.validateDate (server.js:156)<br>
-    at LetterServer.fetchLetter (server.js:42)`,
-    9: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
-    at LetterServer.fetchLetter (server.js:42)<br>
-    at async LetterClient.initialize (client.js:15)<br>
-    at &lt;anonymous&gt; (index.js:7)<br><br>
-    Server Error 503: Service Unavailable<br>
-    at Promise.then (&lt;anonymous&gt;)<br>
-    at LetterServer.fetchLetter (server.js:42)<br>
-    at async LetterClient.initialize (client.js:15)<br><br>
-    Error: Letter content not available until May 26th, 2025<br>
-    at LetterServer.validateDate (server.js:156)<br>
-    at LetterServer.fetchLetter (server.js:42)`,
-    10: `Uncaught TypeError: Cannot read property 'content' of undefined<br>
-    at LetterServer.fetchLetter (server.js:42)<br>
-    at async LetterClient.initialize (client.js:15)<br>
-    at &lt;anonymous&gt; (index.js:7)<br><br>
-    Server Error 503: Service Unavailable<br>
-    at Promise.then (&lt;anonymous&gt;)<br>
-    at LetterServer.fetchLetter (server.js:42)<br>
-    at async LetterClient.initialize (client.js:15)<br><br>
-    Error: Letter content not available until May 26th, 2025<br>
-    at LetterServer.validateDate (server.js:156)<br>
-    at LetterServer.fetchLetter (server.js:42)`,
+    8: `To my <span class="wiggle">Olivia</span>,<br><br>This week has been absolutely <span class="grow">incredible</span>! The <span class="sparkle">Lord</span> has been moving in ways I never could have imagined. We've been having some really deep <span class="hearts">conversations</span> with the LDS community, and I can see hearts beginning to <span class="grow">soften</span> to the truth of the <span class="sparkle">Gospel</span>.<br><br>I <span class="hearts">miss you</span> so much, but I know this time apart is making us both <span class="grow">stronger</span>. Every day I'm reminded of how <span class="rainbow">blessed</span> I am to have you in my life. Your <span class="hearts">love</span> and <span class="hearts">support</span> mean everything to me, even from thousands of miles away.<br><br>I've been <span class="sparkle">praying</span> for you constantly, asking the <span class="sparkle">Lord</span> to protect your <span class="hearts">heart</span> and guide your steps. I know He has amazing plans for both of us, and I can't wait to see what the future holds.<br><br>Keep being the <span class="grow">amazing</span> woman you are, and know that I'm always <span class="hearts">thinking of you</span>.<br><br>With all my <span class="hearts">love</span>,<br>- <span class="wiggle">t8</span> <span class="hearts"><3</span>`,
+    9: `My dearest <span class="wiggle">Olivia</span>,<br><br>As I sit here writing this letter, I can't help but feel overwhelmed with <span class="hearts">gratitude</span> for you. This journey has been so much more meaningful knowing that you're <span class="hearts">praying</span> for me and supporting me from afar.<br><br>The work here continues to be <span class="grow">challenging</span> but so <span class="grow">rewarding</span>. Every conversation, every moment of <span class="sparkle">prayer</span>, every step we take - it all feels like it's part of something much <span class="grow">bigger</span> than ourselves. The <span class="sparkle">Lord</span> is truly at work here, and I feel so <span class="rainbow">honored</span> to be a part of it.<br><br>I <span class="hearts">love you</span> more than words can express. Your <span class="hearts">faith</span>, your <span class="hearts">kindness</span>, your <span class="hearts">beautiful heart</span> - they all inspire me to be a better man every single day.<br><br>Thank you for being my <span class="hearts">anchor</span> in this storm, my <span class="hearts">light</span> in the darkness, my <span class="hearts">home</span> no matter where I am.<br><br>Forever yours,<br>- <span class="wiggle">t8</span> <span class="hearts"><3</span>`,
+    10: `To my <span class="wiggle">beloved Olivia</span>,<br><br>This is my final letter from this incredible journey, and I can't believe how quickly the time has passed. As I prepare to come home to you, my heart is filled with so many <span class="hearts">emotions</span> - <span class="hearts">excitement</span> to see you again, <span class="hearts">gratitude</span> for this experience, and <span class="hearts">love</span> that has only grown stronger through this time apart.<br><br>The <span class="sparkle">Lord</span> has taught me so much about <span class="hearts">love</span>, <span class="sparkle">faith</span>, and what it truly means to serve Him. But above all, He's shown me how <span class="grow">precious</span> you are to me. Distance has only made my <span class="hearts">love</span> for you grow deeper and stronger.<br><br>I can't wait to hold you in my <span class="hearts">arms</span> again, to see your <span class="hearts">smile</span>, to hear your <span class="hearts">laugh</span>. This journey has been amazing, but you are my greatest <span class="rainbow">adventure</span> of all.<br><br>Thank you for being so <span class="hearts">patient</span> with me, for <span class="hearts">loving</span> me through the distance, and for being the most <span class="grow">wonderful</span> woman I've ever known.<br><br>I'm coming home to you, my <span class="hearts">love</span>.<br><br>With all my <span class="hearts">love</span> and <span class="hearts">devotion</span>,<br>- <span class="wiggle">t8</span> <span class="hearts"><3</span>`,
 };
 
 // Dates for each letter (should match order in LETTERS)
@@ -85,10 +62,26 @@ function isLetterUnlocked(letterId) {
     console.log('DEBUG: letterId:', letterId, 'manual unlock:', MANUAL_UNLOCK[letterId]);
     console.log('DEBUG: MANUAL_UNLOCK object:', MANUAL_UNLOCK);
     if (!letterId) return false;
-    if (MANUAL_UNLOCK[letterId]) {
+    
+    // Special letters (11, 12, 13) are always unlocked
+    if (letterId >= 11 && letterId <= 13) {
+        console.log('DEBUG: Special letter', letterId, '- always unlocked');
+        return true;
+    }
+    
+    // Check manual unlock first - if explicitly false, keep locked regardless of date
+    if (MANUAL_UNLOCK[letterId] === false) {
+        console.log('DEBUG: Manual unlock is FALSE for letter', letterId, '- keeping locked');
+        return false;
+    }
+    
+    // If manual unlock is true, unlock immediately
+    if (MANUAL_UNLOCK[letterId] === true) {
         console.log('DEBUG: Manual unlock is TRUE for letter', letterId);
         return true;
     }
+    
+    // If manual unlock is undefined, check date
     const unlockDateStr = LETTER_DATES[letterId];
     if (!unlockDateStr) return false;
     const unlockDate = new Date(unlockDateStr + 'T00:00:00-07:00'); // Set to start of day in PST
@@ -363,7 +356,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    if (LETTERS[letterId]) {
+    // Check if this is a special letter
+    const urlParams = new URLSearchParams(window.location.search);
+    const isSpecial = urlParams.get('special') === 'true';
+    
+    if (isSpecial && SPECIAL_LETTERS[letterId]) {
+        letterContentDiv.innerHTML = SPECIAL_LETTERS[letterId];
+        console.log('Loaded special letter', letterId);
+    } else if (LETTERS[letterId]) {
         letterContentDiv.innerHTML = LETTERS[letterId];
         console.log('Loaded letter', letterId);
     } else {
