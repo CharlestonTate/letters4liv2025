@@ -63,8 +63,8 @@ function isLetterUnlocked(letterId) {
     console.log('DEBUG: MANUAL_UNLOCK object:', MANUAL_UNLOCK);
     if (!letterId) return false;
     
-    // Special letters (11, 12, 13) are always unlocked
-    if (letterId >= 11 && letterId <= 13) {
+    // Special letters (11, 12, 13, 14) are always unlocked
+    if (letterId >= 11 && letterId <= 100) {
         console.log('DEBUG: Special letter', letterId, '- always unlocked');
         return true;
     }
