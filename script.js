@@ -176,8 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const letterId = parseInt(slot.dataset.letterId);
             const letterDate = new Date(slot.dataset.date + 'T00:00:00-07:00');
             
-            // Special letters (11, 12, 13) are always unlocked
-            if (letterId >= 11 && letterId <= 13) {
+            // Special letters (11, 12, 13, 14) are always unlocked
+            if (letterId >= 11 && letterId <= 100) {
                 slot.classList.add('unlocked');
                 const lockIcon = slot.querySelector('.lock-icon');
                 if (lockIcon) {
